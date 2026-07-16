@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hành trình của hai đứa mình</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dusk-bg:#fbf1ec;
+    --dusk-ink:#4a2c3d;
+    --dusk-rose:#d88c9a;
+    --dusk-rose-soft:#f3d9de;
+
+    --trail-paper:#f3ead4;
+    --trail-paper-deep:#ece0c4;
+    --trail-ink:#2f4538;
+    --trail-clay:#bf6640;
+    --trail-clay-deep:#a4502d;
+    --trail-gold:#c9a227;
+
+    --bronze:#b0784a;
+    --silver:#9aa1a6;
+    --gold:#d9b23c;
+    --diamond:#5b8a80;
+
+    --serif: 'Cormorant Garamond', serif;
+    --display: 'Baloo 2', sans-serif;
+    --body: 'Be Vietnam Pro', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--body);
+    background:var(--dusk-bg);
+    color:var(--dusk-ink);
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  a{color:inherit;}
+
+  .letter-section{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:8vh 6vw 10vh;
+    background:
+      radial-gradient(ellipse at 20% 10%, var(--dusk-rose-soft) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 85%, #f6e4c9 0%, transparent 50%),
+      var(--dusk-bg);
+    position:relative;
+    text-align:center;
+  }
+  .letter-eyebrow{
+    font-family:var(--body);
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:0.7rem;
+    color:var(--dusk-rose);
+    margin-bottom:1.8rem;
+    opacity:0;
+    animation:fadeUp 1s ease forwards 0.2s;
+  }
+  .letter-title{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(2rem, 5vw, 3.4rem);
+    max-width:22ch;
+    line-height:1.25;
+    margin-bottom:2.6rem;
+    opacity:0;
+    animation:fadeUp 1s ease forwards 0.5s;
+  }
+  .letter-body{
+    max-width:560px;
+    font-family:var(--serif);
+    font-size:clamp(1.05rem, 2vw, 1.28rem);
+    line-height:1.85;
+    color:#5c3d4c;
+    opacity:0;
+    animation:fadeUp 1s ease forwards 0.9s;
+  }
+  .letter-body p{margin-bottom:1.3rem;}
+  .letter-sign{
+    margin-top:2.5rem;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1.2rem;
+    color:var(--dusk-rose);
+    opacity:0;
+    animation:fadeUp 1s ease forwards 1.3s;
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(18px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .scroll-cue{
+    margin-top:4rem;
+    font-family:var(--body);
+    font-size:0.75rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--dusk-rose);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.5rem;
+    opacity:0;
+    animation:fadeUp 1s ease forwards 1.7s;
+  }
+  .scroll-cue svg{animation:bob 1.8s ease-in-out infinite;}
+  @keyframes bob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(8px);}
+  }
+
+  .transition{
+    background: linear-gradient(180deg, var(--dusk-bg) 0%, var(--trail-paper) 100%);
+    padding:10vh 6vw;
+    text-align:center;
+  }
+  .transition h2{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(1.6rem, 4vw, 2.3rem);
+    color:var(--trail-ink);
+    max-width:30ch;
+    margin:0 auto 1rem;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+  }
+  .transition p{
+    font-family:var(--body);
+    color:var(--trail-clay-deep);
+    max-width:48ch;
+    margin:0 auto;
+    font-size:1.05rem;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s;
+  }
+  .transition.in h2, .transition.in p{opacity:1; transform:translateY(0);}
+  .transition.paper2{ background: linear-gradient(180deg, var(--trail-paper-deep) 0%, var(--trail-paper) 100%); }
+
+  .record-section{
+    background:
+      repeating-linear-gradient(135deg, rgba(191,102,64,0.035) 0px, rgba(191,102,64,0.035) 2px, transparent 2px, transparent 14px),
+      var(--trail-paper);
+    padding:2vh 6vw 10vh;
+  }
+  .starter-card{
+    max-width:640px;
+    margin:0 auto 3rem;
+    background:linear-gradient(135deg, #fbf5e6, #f3ead4);
+    border:2px dashed var(--trail-gold);
+    border-radius:20px;
+    padding:1.8rem 1.8rem;
+    text-align:center;
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .starter-card.in{opacity:1; transform:translateY(0);}
+  .starter-card .tag{
+    font-family:var(--body); font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--trail-clay-deep); font-weight:700; margin-bottom:0.6rem;
+  }
+  .starter-card h3{ font-family:var(--display); font-size:1.3rem; color:var(--trail-ink); margin-bottom:0.6rem;}
+  .starter-card p{ font-family:var(--body); font-size:0.95rem; color:#4a5a4c; line-height:1.6;}
+
+  .record-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.3rem;
+    max-width:720px;
+    margin:0 auto;
+  }
+  @media (max-width:640px){ .record-grid{grid-template-columns:1fr;} }
+
+  .record-card{
+    background:#fbf5e6;
+    border:1.5px solid rgba(47,69,56,0.12);
+    border-radius:18px;
+    padding:1.3rem 1.3rem;
+    display:flex;
+    gap:0.9rem;
+    align-items:flex-start;
+    box-shadow:0 8px 18px rgba(47,69,56,0.06);
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .record-card.in{opacity:1; transform:translateY(0);}
+  .record-icon{width:44px; height:44px; flex-shrink:0;}
+  .record-name{font-family:var(--display); font-weight:700; font-size:1rem; color:var(--trail-ink); margin-bottom:0.3rem;}
+  .record-desc{font-family:var(--body); font-size:0.85rem; color:#5a6b5c; line-height:1.5;}
+  .record-desc b{color:var(--trail-clay-deep);}
+
+  .plan-section{
+    background:var(--trail-paper);
+    padding:2vh 6vw 12vh;
+    position:relative;
+  }
+  .plan-wrap{ max-width:680px; margin:0 auto; position:relative; }
+  .week-card{
+    position:relative;
+    margin-left:64px;
+    margin-bottom:2.2rem;
+    background:#fbf5e6;
+    border:1.5px solid rgba(47,69,56,0.12);
+    border-radius:18px;
+    padding:1.4rem 1.5rem;
+    box-shadow:0 8px 18px rgba(47,69,56,0.06);
+    opacity:0;
+    transform:translateX(-20px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .week-card.in{opacity:1; transform:translateX(0);}
+  .week-num{
+    position:absolute;
+    left:-64px;
+    top:0.9rem;
+    width:44px; height:44px;
+    border-radius:50%;
+    background:var(--trail-clay);
+    color:#fff8ec;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:0.95rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 10px rgba(164,80,45,0.35);
+  }
+  .week-card.peak .week-num{ background:var(--trail-gold); color:#2f4538; }
+  .week-card.taper .week-num{ background:var(--diamond); }
+  .week-title{ font-family:var(--display); font-weight:700; font-size:1.1rem; color:var(--trail-ink); margin-bottom:0.6rem;}
+  .week-body{ font-family:var(--body); font-size:0.92rem; color:#4a5a4c; line-height:1.65;}
+  .week-body b{ color:var(--trail-clay-deep); }
+  .week-note{
+    margin-top:0.7rem;
+    background:var(--trail-paper-deep);
+    border-radius:10px;
+    padding:0.6rem 0.9rem;
+    font-size:0.84rem;
+    color:var(--trail-ink);
+  }
+
+  .dest-section{
+    background:var(--trail-paper-deep);
+    padding:10vh 6vw;
+  }
+  .dest-header{
+    text-align:center;
+    max-width:600px;
+    margin:0 auto 3rem;
+  }
+  .dest-header h2{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(1.6rem,4vw,2.2rem);
+    color:var(--trail-ink);
+    margin-bottom:0.8rem;
+  }
+  .dest-header p{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--trail-clay-deep);
+  }
+  .dest-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.4rem;
+    max-width:780px;
+    margin:0 auto;
+  }
+  @media (max-width:640px){ .dest-grid{grid-template-columns:1fr;} }
+
+  .dest-card{
+    background:#fbf5e6;
+    border-radius:20px;
+    overflow:hidden;
+    border:1.5px solid rgba(47,69,56,0.12);
+    box-shadow:0 8px 20px rgba(47,69,56,0.07);
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .dest-card.in{opacity:1; transform:translateY(0);}
+  .dest-art{height:130px; width:100%;}
+  .dest-body{padding:1.1rem 1.3rem 1.4rem;}
+  .dest-name{font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--trail-ink); margin-bottom:0.3rem;}
+  .dest-country{font-family:var(--body); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--trail-clay); font-weight:700; margin-bottom:0.4rem;}
+  .dest-desc{font-family:var(--body); font-size:0.86rem; color:#5a6b5c; line-height:1.55;}
+
+  .summit-section{
+    background: linear-gradient(180deg, var(--trail-paper-deep) 0%, #2f4538 100%);
+    padding:14vh 6vw;
+    text-align:center;
+    color:#f3ead4;
+  }
+  .summit-section h2{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(1.8rem,4.5vw,2.6rem);
+    max-width:30ch;
+    margin:0 auto 1.6rem;
+  }
+  .summit-section p{
+    font-family:var(--body);
+    font-size:1rem;
+    max-width:48ch;
+    margin:0 auto 2.6rem;
+    color:#dfe6da;
+    line-height:1.7;
+  }
+  .summit-btn{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:1.05rem;
+    background:var(--trail-gold);
+    color:#2f4538;
+    border:none;
+    padding:1rem 2.4rem;
+    border-radius:100px;
+    cursor:pointer;
+    box-shadow:0 8px 22px rgba(201,162,39,0.35);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .summit-btn:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(201,162,39,0.45);}
+  .summit-btn:focus-visible{outline:3px solid #fff; outline-offset:3px;}
+
+  .summit-reply{
+    margin-top:2.2rem;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:1.2rem;
+    color:var(--dusk-rose-soft);
+    min-height:2rem;
+    opacity:0;
+    transition:opacity 0.6s ease;
+  }
+  .summit-reply.show{opacity:1;}
+
+  footer{
+    text-align:center;
+    padding:2.2rem;
+    font-family:var(--body);
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:#c7cfc4;
+    background:#2f4538;
+  }
+
+  .confetti{
+    position:fixed;
+    top:-10px;
+    z-index:50;
+    border-radius:2px;
+    pointer-events:none;
+  }
+</style>
+</head>
+<body>
+
+<section class="letter-section">
+  <div class="letter-eyebrow">Gửi em</div>
+  <h1 class="letter-title">Người anh muốn cùng đi khắp thế gian</h1>
+  <div class="letter-body">
+    <p>Hành trình vạn dặm bắt đầu từ một bước chân.</p>
+    <p>Giữa guồng quay hối hả và những toan lo không ngừng của cuộc sống thường nhật, điều anh mong mỏi nhất không phải là thứ gì xa xôi, mà chỉ đơn thuần là em luôn giữ được một cơ thể dẻo dai và một tinh thần tràn đầy năng lượng. Anh vẫn luôn ấp ủ ước ao được cùng em dạo bước khắp thế gian, vượt ra ngoài dải đất hình chữ S để chạm tới những chân trời lộng lẫy ngoài kia.</p>
+    <p>Thời gian, tiền bạc và khoảng cách chưa bao giờ là trở ngại lớn nhất. Điều anh lo sợ hơn cả là đến một ngày, khi chúng mình đã có đủ tự do và điều kiện để đi, thì đôi chân lại chẳng còn đủ để sức chiều lòng người nữa. Anh không muốn hai đứa mình phải đứng nhìn những đỉnh núi mây mờ che phủ hay những đại lộ thênh thang bằng ánh mắt tiếc nuối, chỉ vì cơ thể đã rệu rã sau những năm tháng dốc sức cho cuộc sống.</p>
+    <p>Bởi vậy, anh muốn chúng mình bắt đầu tích lũy từ những bước đi nhỏ nhất ngay hôm nay. Mỗi km chạy bộ, mỗi buổi tập luyện, hay chỉ đơn giản là những bước dạo bộ bình yên cùng nhau khi hoàng hôn buông xuống là một hành trình chuẩn bị đầy ý nghĩa. Đó chính là viên gạch đầu tiên để xây nên nền tảng cho những chuyến phiêu lưu vạn dặm của chúng ta sau này.</p>
+    <p>Sắp tới em có một chuyến trail 12km. Anh có setup cho em một khóa update thể lực, có thể dựa vào đó để set bài cho các chuyến sau của em.</p>
+  </div>
+  <div class="letter-sign">Thương em, luôn muốn đi cùng em thật xa — Anh.</div>
+  <div class="scroll-cue">
+    <span>cuộn xuống nhé</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<section class="transition" id="transition1">
+  <h2>Hành trình nhỏ — hướng đến chân trời xa xôi 🏃‍♀️</h2>
+  <p>Mỗi ngày, mỗi bước em đi, đều kéo gần hơn tới các trải nghiệm thú vị đang chờ em phía trước</p>
+</section>
+
+<section class="record-section">
+  <div class="starter-card" data-cp>
+    <div class="tag">Quà khởi động</div>
+    <h3>Một món quà nho nhỏ, khi em bước cùng anh</h3>
+    <p>Không cần những kỷ lục, hay những điều lớn lao. Ngay khi em quyết định bắt đầu, đó là niềm hạnh phúc của anh khi được đồng hành với em trong hành trình này.</p>
+  </div>
+
+  <div class="record-grid">
+    <div class="record-card" data-cp>
+      <svg class="record-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#d9b23c" stroke="#ab8620" stroke-width="2"/><path d="M26 8 L15 27 H22 L19 40 L33 20 H25 Z" fill="#fffbe8"/></svg>
+      <div>
+        <div class="record-name">Kỷ lục số km chạy được</div>
+        <div class="record-desc">Mỗi lần em chạy đạt lượng km 100 - 200 - 300 - ... <b>Giấy chứng nhận</b> + quà bí mật.</div>
+      </div>
+    </div>
+    <div class="record-card" data-cp>
+      <svg class="record-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#b0784a" stroke="#8a5c37" stroke-width="2"/><path d="M14 30 L22 18 L27 24 L34 14" stroke="#fff4e6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="34" cy="14" r="3" fill="#fff4e6"/></svg>
+      <div>
+        <div class="record-name">Kỷ lục pace cự ly giải chạy</div>
+        <div class="record-desc">Thời gian hoàn thành 5km, 10km, 21km, 42km tốt nhất. Phá kỷ lục có thưởng, pace đạt các mốc→ <b>Giấy chứng nhận/huy chương</b> + quà bí mật(với các cột mốc lớn).</div>
+      </div>
+    </div>
+    <div class="record-card" data-cp>
+      <svg class="record-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#c98f61" stroke="#8a5c37" stroke-width="2"/><path d="M14 34 L20 20 L26 28 L32 12 L38 30" stroke="#fff4e6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div>
+        <div class="record-name">Hoàn thành các cung chạy mới</div>
+        <div class="record-desc"> Cùng nhau tìm các cung chạy mới cùng nhau và hoàn thành nó với mốc pace đề ra → thưởng với mỗi chặng hoàn thành.</div>
+      </div>
+    </div>
+    <div class="record-card" data-cp>
+      <svg class="record-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#d88c9a" stroke="#a85a6a" stroke-width="2"/><circle cx="24" cy="24" r="12" fill="none" stroke="#fff0f2" stroke-width="2.5"/><path d="M24 17 V24 L29 28" stroke="#fff0f2" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+      <div>
+        <div class="record-name">Kỷ lục streak vận động dài nhất</div>
+        <div class="record-desc">Chuỗi lâu nhất em duy trì liên tục. Phá kỷ lục tính theo số buổi, mỗi 25 buổi→ <b>Giấy chứng nhận bền bỉ</b> + quà bí mật từng mốc.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="transition paper2" id="transition2">
+  <h2>Và đây là lộ trình 7 tuần, cho chuyến trail 12km sắp tới của em 🎒</h2>
+
+</section>
+
+<section class="plan-section">
+  <div class="plan-wrap">
+
+    <div class="week-card" data-cp>
+      <div class="week-num">0</div>
+      <div class="week-title">Khởi động — Check limit</div>
+      <div class="week-body">
+        <b>Lịch tuần:</b> 4 buổi chạy/đi bộ nhẹ nhàng, mỗi buổi 30–40 phút. Không quan tâm quãng đường, cứ mệt thì đi bộ.<br>
+        <b>Cuối tuần:</b> 1 buổi đi bộ dạo phố/công viên cùng nhau khoảng 60 phút (coi như buổi phục hồi).
+      </div>
+    </div>
+
+    <div class="week-card" data-cp>
+      <div class="week-num">1–2</div>
+      <div class="week-title">Xây dựng sức bền căn bản</div>
+      <div class="week-body">
+        <b>3 buổi trong tuần:</b> Chạy nhẹ nhàng 3km (khoảng 30–35 phút/buổi).<br>
+        <b>1 buổi cuối tuần (cùng nhau):</b> Tăng dần lên 5–6km, không áp pace, chạy trò chuyện được (Talk pace), khoảng 50–60 phút.
+      </div>
+    </div>
+
+    <div class="week-card" data-cp>
+      <div class="week-num">3–4</div>
+      <div class="week-title">Làm quen với dốc và sức bền</div>
+      <div class="week-body">
+        <b>3 buổi trong tuần:</b> Chạy 4km (khoảng 40–45 phút/buổi).<br>
+        <b>1 buổi cuối tuần (cùng nhau):</b> Nâng cự ly lên 8km.
+      </div>
+      <div class="week-note">Chọn cung đường có dốc — Công viên Yên Sở, Sóc Sơn hoặc mỏm đá/dốc thoải. Đi bộ nhanh khi lên dốc, chạy nhẹ khi xuống dốc/đường bằng.</div>
+    </div>
+
+    <div class="week-card peak" data-cp>
+      <div class="week-num">5</div>
+      <div class="week-title">Tuần Peak — Điểm thể lực</div>
+      <div class="week-body">
+        <b>3 buổi trong tuần:</b> Chạy nhẹ 3–4km (khoảng 30–40 phút).<br>
+        <b>1 buổi cuối tuần:</b> Long Run/Walk dài 10km.
+      </div>
+      <div class="week-note">Không áp đặt quá về số phút. Để em hoàn thành cố gắng trong 100–110 phút bằng Run–Walk–Run. Giúp cơ thể quen vận động liên tục gần 2 tiếng.</div>
+    </div>
+
+    <div class="week-card" data-cp>
+      <div class="week-num">6</div>
+      <div class="week-title">Giảm tải nhẹ &amp; làm quen địa hình giả lập</div>
+      <div class="week-body">
+        <b>3 buổi trong tuần:</b> Chạy nhẹ 3km (30 phút).<br>
+        <b>1 buổi cuối tuần:</b> Chạy/đi bộ dốc khoảng 6–7km.
+      </div>
+      <div class="week-note">Không tăng cự ly nữa để cơ bắp bắt đầu hồi phục — tập trung đi bộ dốc thoải mái.</div>
+    </div>
+
+    <div class="week-card taper" data-cp>
+      <div class="week-num">7</div>
+      <div class="week-title">Taper — Dưỡng sức trước Race</div>
+      <div class="week-body">
+        <b>3 buổi trong tuần:</b> Chạy/đi bộ siêu nhẹ 2–3km (20–30 phút), chủ yếu thư giãn cơ và giữ cảm giác chân.<br>
+        <b>Cuối tuần:</b> Lên đường đi trail 12km, với tinh thần thoải mái nhất. 💛
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="dest-section">
+  <div class="dest-header">
+    <h2>Nhờ tăng thể lực, tụi mình sẵn sàng đi những đâu?</h2>
+    <p>Vài nơi anh đã để mắt tới, chỉ chờ em gật đầu</p>
+  </div>
+  <div class="dest-grid">
+    <div class="dest-card" data-dc>
+      <svg class="dest-art" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <rect width="300" height="130" fill="#e7d9b3"/>
+        <path d="M0,90 L60,40 L100,70 L150,20 L200,65 L250,35 L300,80 L300,130 L0,130 Z" fill="#8a9a6f"/>
+        <path d="M60,40 L75,55 L45,55 Z" fill="#fff" opacity="0.5"/>
+        <path d="M150,20 L165,38 L135,38 Z" fill="#fff" opacity="0.5"/>
+        <circle cx="255" cy="25" r="14" fill="#f0d878"/>
+      </svg>
+      <div class="dest-body">
+        <div class="dest-country">Việt Nam</div>
+        <div class="dest-name">Tà Năng – Phan Dũng</div>
+        <div class="dest-desc">Cung trail đồi cỏ nổi tiếng nhất Việt Nam — đúng level sau khi em đã quen chạy dốc và đi dài.</div>
+      </div>
+    </div>
+    <div class="dest-card" data-dc>
+      <svg class="dest-art" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <rect width="300" height="130" fill="#f2ddd0"/>
+        <path d="M100,110 L150,25 L200,110 Z" fill="#7a4a3a"/>
+        <path d="M135,60 L165,60 L150,35 Z" fill="#c1673b"/>
+        <circle cx="150" cy="30" r="6" fill="#ff8a5c"/>
+        <path d="M0,115 L300,115 L300,130 L0,130 Z" fill="#3a2a24"/>
+      </svg>
+      <div class="dest-body">
+        <div class="dest-country">Indonesia</div>
+        <div class="dest-name">Núi lửa Ijen &amp; Bromo</div>
+        <div class="dest-desc">Leo núi lửa lúc rạng sáng, nhìn ngọn lửa xanh huyền thoại và biển mây giữa miệng núi lửa — một trải nghiệm không nơi nào có.</div>
+      </div>
+    </div>
+    <div class="dest-card" data-dc>
+      <svg class="dest-art" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <rect width="300" height="130" fill="#dfe6ea"/>
+        <path d="M0,95 Q75,80 150,95 T300,95 L300,130 L0,130 Z" fill="#2b2b2f"/>
+        <path d="M0,70 Q75,55 150,68 T300,60 L300,95 Q225,80 150,95 T0,95 Z" fill="#556067"/>
+      </svg>
+      <div class="dest-body">
+        <div class="dest-country">Iceland</div>
+        <div class="dest-name">Bãi biển cát đen Reynisfjara</div>
+        <div class="dest-desc">Đi bộ dọc bờ cát đen tuyền, giữa những cột đá bazan và sóng biển Bắc Đại Tây Dương — đẹp một cách siêu thực.</div>
+      </div>
+    </div>
+    <div class="dest-card" data-dc>
+      <svg class="dest-art" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <rect width="300" height="130" fill="#e8e4d8"/>
+        <path d="M0,100 L60,45 L110,80 L160,25 L210,80 L260,50 L300,95 L300,130 L0,130 Z" fill="#8b7d8f"/>
+        <path d="M160,25 L172,42 L148,42 Z" fill="#fff" opacity="0.75"/>
+        <path d="M60,45 L70,58 L50,58 Z" fill="#fff" opacity="0.75"/>
+        <rect x="130" y="95" width="14" height="18" fill="#c9a227"/>
+      </svg>
+      <div class="dest-body">
+        <div class="dest-country">Tây Tạng</div>
+        <div class="dest-name">Cao nguyên &amp; núi Kailash</div>
+        <div class="dest-desc">Hành trình lớn nhất — độ cao khắc nghiệt, tinh thần thiêng liêng. Mục tiêu dài hạn khi thể lực của tụi mình đã thật sự vững.</div>
+      </div>
+    </div>
+    <div class="dest-card" data-dc>
+      <svg class="dest-art" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <rect width="300" height="130" fill="#dce6d0"/>
+        <path d="M0,100 L50,60 L90,85 L140,45 L190,80 L240,50 L300,95 L300,130 L0,130 Z" fill="#5c7a52"/>
+        <rect x="70" y="88" width="18" height="14" fill="#c19a5b"/>
+        <path d="M70,88 L79,78 L88,88 Z" fill="#a4502d"/>
+      </svg>
+      <div class="dest-body">
+        <div class="dest-country">Việt Nam</div>
+        <div class="dest-name">Pù Luông, Thanh Hóa</div>
+        <div class="dest-desc">Ruộng bậc thang, bản làng yên tĩnh — hợp cho một chuyến "hồi sức" nhẹ nhàng giữa những cung trail nặng đô hơn.</div>
+      </div>
+    </div>
+    <div class="dest-card" data-dc>
+      <svg class="dest-art" viewBox="0 0 300 130" preserveAspectRatio="none">
+        <rect width="300" height="130" fill="#e3ddd0"/>
+        <path d="M0,90 L70,25 L110,70 L160,10 L210,70 L260,35 L300,85 L300,130 L0,130 Z" fill="#7a8b96"/>
+        <path d="M70,25 L85,42 L55,42 Z" fill="#fff" opacity="0.7"/>
+        <path d="M160,10 L178,32 L142,32 Z" fill="#fff" opacity="0.7"/>
+      </svg>
+      <div class="dest-body">
+        <div class="dest-country">Nepal</div>
+        <div class="dest-name">Annapurna Base Camp</div>
+        <div class="dest-desc">Một trong những trek huyền thoại nhất thế giới — nhiều ngày giữa dãy Himalaya, cho lúc tụi mình đã sẵn sàng cho thử thách lớn.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="summit-section">
+  <h2>Đỉnh núi nào cũng bắt đầu từ một bước chân</h2>
+  <p>Không cần vội, không cần hoàn hảo. Anh chỉ cần em nắm tay anh, và bắt đầu — mỗi ngày một chút, tới ngày em một mình bước qua vạch đích 12km, rồi tới những đỉnh xa hơn tụi mình sẽ cùng đứng.</p>
+  <button class="summit-btn" id="summitBtn">Em đã sẵn sàng 💛</button>
+  <div class="summit-reply" id="summitReply">Vậy thì, nắm tay anh, mình bắt đầu thôi. 🥾🏔️</div>
+</section>
+
+<footer>làm bằng tất cả tình thương — cho hành trình của hai đứa mình</footer>
+
+<script>
+  const obsOptions = {threshold:0.3};
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); }
+    });
+  }, obsOptions);
+
+  document.querySelectorAll('#transition1, #transition2').forEach(el=> io.observe(el));
+  document.querySelectorAll('[data-cp]').forEach(el=> io.observe(el));
+  document.querySelectorAll('[data-dc]').forEach(el=> io.observe(el));
+
+  const btn = document.getElementById('summitBtn');
+  const reply = document.getElementById('summitReply');
+  const colors = ['#c9a227','#d88c9a','#5b8a80','#f3ead4','#bf6640'];
+
+  function launchConfetti(){
+    for(let i=0;i<40;i++){
+      const c = document.createElement('div');
+      c.className='confetti';
+      const size = 6+Math.random()*6;
+      c.style.width = size+'px';
+      c.style.height = (size*0.4)+'px';
+      c.style.left = Math.random()*100+'vw';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.transform = `rotate(${Math.random()*360}deg)`;
+      document.body.appendChild(c);
+      const duration = 2200+Math.random()*1800;
+      const drift = (Math.random()-0.5)*200;
+      c.animate([
+        {transform:c.style.transform+' translateY(0)', opacity:1},
+        {transform:`translate(${drift}px, 100vh) rotate(${360+Math.random()*360}deg)`, opacity:0.9}
+      ], {duration:duration, easing:'ease-in'});
+      setTimeout(()=>c.remove(), duration);
+    }
+  }
+
+  btn.addEventListener('click', ()=>{
+    reply.classList.add('show');
+    launchConfetti();
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    btn.style.cursor='default';
+  });
+</script>
+
+</body>
+</html>
